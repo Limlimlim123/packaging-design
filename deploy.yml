@@ -1,0 +1,47 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run tests
+      run: npm test
+      
+    - name: Check types
+      run: npm run type-check
+      
+    - name: Build
+      run: npm run build
+      
+    - name: Run deployment checks
+      run: npm run deploy:check
+      env:
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        STORAGE_ACCESS_KEY: ${{ secrets.STORAGE_ACCESS_KEY }}
+        STORAGE_SECRET_KEY: ${{ secrets.STORAGE_SECRET_KEY }}
+        STORAGE_BUCKET_NAME: ${{ secrets.STORAGE_BUCKET_NAME }}
+        
+    - name: Deploy to production
+      if: github.ref == 'refs/heads/main'
+      run: npm run deploy:prod
+      env:
+        DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
