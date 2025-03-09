@@ -4,29 +4,15 @@ const nextConfig = {
   swcMinify: true,
   output: 'standalone',
   images: {
-    domains: ['vercel.app'],
-    formats: ['image/avif', 'image/webp']
+    domains: ['limboxbox.vercel.app']  // 修改这里
   },
   experimental: {
     serverComponentsExternalPackages: ['@prisma/client']
   },
   env: {
-    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
-    NEXT_PUBLIC_SOCKET_URL: process.env.NEXT_PUBLIC_SOCKET_URL
-  },
-  headers: async () => {
-    return [
-      {
-        source: '/api/:path*',
-        headers: [
-          { key: 'Access-Control-Allow-Credentials', value: 'true' },
-          { key: 'Access-Control-Allow-Origin', value: '*' },
-          { key: 'Access-Control-Allow-Methods', value: 'GET,POST,PUT,DELETE,OPTIONS' },
-          { key: 'Access-Control-Allow-Headers', value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version' }
-        ]
-      }
-    ]
+    NEXT_PUBLIC_APP_URL: 'https://limboxbox.vercel.app',
+    NEXT_PUBLIC_API_URL: 'https://limboxbox.vercel.app/api',
+    NEXT_PUBLIC_SOCKET_URL: 'https://limboxbox.vercel.app'
   }
 }
 
