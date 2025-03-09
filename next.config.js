@@ -4,9 +4,7 @@ const nextConfig = {
   swcMinify: true,
   output: 'standalone',
   images: {
-    domains: [
-      process.env.ALIYUN_OSS_BUCKET + '.' + process.env.ALIYUN_OSS_ENDPOINT.replace('https://', '')
-    ],
+    domains: ['vercel.app'],
     formats: ['image/avif', 'image/webp']
   },
   experimental: {
