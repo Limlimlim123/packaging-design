@@ -1,18 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
   output: 'standalone',
   images: {
-    domains: ['limboxbox.vercel.app']  // 修改这里
+    domains: ['limboxbox.vercel.app']
   },
   experimental: {
-    serverComponentsExternalPackages: ['@prisma/client']
-  },
-  env: {
-    NEXT_PUBLIC_APP_URL: 'https://limboxbox.vercel.app',
-    NEXT_PUBLIC_API_URL: 'https://limboxbox.vercel.app/api',
-    NEXT_PUBLIC_SOCKET_URL: 'https://limboxbox.vercel.app'
+    serverExternalPackages: ['@prisma/client']  // 修改这里
   }
 }
 

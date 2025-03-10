@@ -3,7 +3,7 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
 export async function GET(
-    request: Request,
+    _request: Request,  // 添加下划线前缀表示有意不使用
     { params }: { params: { id: string } }
 ) {
     try {
