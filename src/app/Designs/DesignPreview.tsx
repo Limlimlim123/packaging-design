@@ -48,7 +48,7 @@ export async function PATCH(
     try {
         const session = await auth()
         
-        if (!session?.user?.email?.endsWith('@admin.com')) {
+        if (!session || session.role !== 'ADMIN') {
             return new NextResponse('Forbidden', { status: 403 })
         }
 
