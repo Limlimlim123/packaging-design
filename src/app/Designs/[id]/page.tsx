@@ -9,6 +9,7 @@ import { SizeSelector } from '@/components/design-detail/SizeSelector'
 import { MaterialSelector } from '@/components/design-detail/MaterialSelector'
 import { PriceCalculator } from '@/components/design-detail/PriceCalculator'
 import { DesignEditor } from '@/components/design-editor/DesignEditor'
+import { DesignViewer } from '@/components/design-editor/DesignViewer'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
@@ -43,7 +44,7 @@ function DesignPageSkeleton() {
 
 export default function DesignPage({ params }: DesignPageProps) {
     const router = useRouter()
-    const { addToast } = useToast()
+    const { toast } = useToast()
     const {
         selectedSize,
         selectedMaterial,
@@ -68,9 +69,10 @@ export default function DesignPage({ params }: DesignPageProps) {
                 const data = await response.json()
                 setTemplate(data)
             } catch (error) {
-                addToast({
-                    message: '加载模板失败',
-                    type: 'error'
+                toast({
+                    title: "错误",
+                    description: "加载模板失败",
+                    variant: "destructive"
                 })
                 router.push('/designs')
             } finally {
@@ -78,7 +80,7 @@ export default function DesignPage({ params }: DesignPageProps) {
             }
         }
         fetchTemplate()
-    }, [params.id, addToast, router])
+    }, [params.id, toast, router])
 
     if (loading) return <DesignPageSkeleton />
     if (!template) return notFound()
@@ -109,16 +111,18 @@ export default function DesignPage({ params }: DesignPageProps) {
             }
 
             const result = await response.json()
-            addToast({
-                message: '设计保存成功',
-                type: 'success'
+            toast({
+                title: "成功",
+                description: "设计保存成功",
+                variant: "default"
             })
 
             router.push(`/orders/${result.id}/confirm`)
         } catch (error) {
-            addToast({
-                message: error instanceof Error ? error.message : '保存失败，请稍后重试',
-                type: 'error'
+            toast({
+                title: "错误",
+                description: error instanceof Error ? error.message : '保存失败，请稍后重试',
+                variant: "destructive"
             })
         }
     }
@@ -133,14 +137,16 @@ export default function DesignPage({ params }: DesignPageProps) {
                 throw new Error('收藏失败')
             }
             
-            addToast({
-                message: '收藏成功',
-                type: 'success'
+            toast({
+                title: "成功",
+                description: "收藏成功",
+                variant: "default"
             })
         } catch (error) {
-            addToast({
-                message: '收藏失败，请稍后重试',
-                type: 'error'
+            toast({
+                title: "错误",
+                description: "收藏失败，请稍后重试",
+                variant: "destructive"
             })
         }
     }
