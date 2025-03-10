@@ -90,7 +90,7 @@ export async function PATCH(
 }
 
 export async function DELETE(
-    request: Request,
+    _request: Request,  // 添加下划线前缀表示这个参数未使用
     { params }: { params: { id: string } }
 ) {
     try {
