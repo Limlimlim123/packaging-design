@@ -1,8 +1,7 @@
 import { defineConfig, devices } from '@playwright/test'
-import path from 'path'
 
 const config = defineConfig({
-    testDir: './src/test/e2e',  // 更新测试目录路径
+    testDir: './src/test/e2e',
     timeout: 30000,
     expect: {
         timeout: 5000
