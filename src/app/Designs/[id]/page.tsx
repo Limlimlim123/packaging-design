@@ -9,7 +9,6 @@ import { SizeSelector } from '@/components/design-detail/SizeSelector'
 import { MaterialSelector } from '@/components/design-detail/MaterialSelector'
 import { PriceCalculator } from '@/components/design-detail/PriceCalculator'
 import { DesignEditor } from '@/components/design-editor/DesignEditor'
-import { DesignViewer } from '@/components/design-editor/DesignViewer'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
@@ -158,23 +157,14 @@ export default function DesignPage({ params }: DesignPageProps) {
                     {/* 预览区 */}
                     <div className="space-y-4">
                         <Tabs defaultValue="preview" className="w-full">
-                            <TabsList className="grid w-full grid-cols-4">
+                            <TabsList className="grid w-full grid-cols-3">
                                 <TabsTrigger value="preview">效果图</TabsTrigger>
-                                <TabsTrigger value="3d">3D预览</TabsTrigger>
                                 <TabsTrigger value="dieline">刀版图</TabsTrigger>
                                 <TabsTrigger value="customize">开始定制</TabsTrigger>
                             </TabsList>
 
                             <TabsContent value="preview">
                                 <DesignPreview template={template} />
-                            </TabsContent>
-
-                            <TabsContent value="3d">
-                                <div className="aspect-square rounded-lg bg-white">
-                                    <Suspense fallback={<Skeleton className="w-full h-full" />}>
-                                        <DesignViewer modelUrl={template.images.threeD} />
-                                    </Suspense>
-                                </div>
                             </TabsContent>
 
                             <TabsContent value="dieline">
