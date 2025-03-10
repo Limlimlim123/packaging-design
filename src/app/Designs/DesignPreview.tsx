@@ -3,7 +3,7 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
 export async function GET(
-    _request: Request,  // 添加下划线前缀表示有意不使用
+    _request: Request,
     { params }: { params: { id: string } }
 ) {
     try {
@@ -48,7 +48,7 @@ export async function PATCH(
     try {
         const session = await auth()
         
-        if (!session || session.role !== 'ADMIN') {
+        if (!session?.user?.email?.endsWith('@admin.com')) {  // 修改这里
             return new NextResponse('Forbidden', { status: 403 })
         }
 
