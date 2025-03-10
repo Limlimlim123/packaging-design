@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { Session } from 'next-auth'
 
 export async function GET(
     _request: Request,
@@ -47,8 +48,9 @@ export async function PATCH(
 ) {
     try {
         const session = await auth()
-        
-        if (!session?.user?.email?.endsWith('@admin.com')) {  // 修改这里
+        const userEmail = session?.user?.email
+
+        if (!userEmail?.endsWith('@admin.com')) {
             return new NextResponse('Forbidden', { status: 403 })
         }
 
@@ -87,8 +89,9 @@ export async function DELETE(
 ) {
     try {
         const session = await auth()
-        
-        if (!session?.user?.email?.endsWith('@admin.com')) {
+        const userEmail = session?.user?.email
+
+        if (!userEmail?.endsWith('@admin.com')) {
             return new NextResponse('Forbidden', { status: 403 })
         }
 
