@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { Session } from '@auth/core/types'  // 添加这行
 
 export async function GET(
     _request: Request,
@@ -46,7 +47,7 @@ export async function PATCH(
     { params }: { params: { id: string } }
 ) {
     try {
-        const session = await auth()
+        const session = await auth() as Session | null
         const userEmail = session?.user?.email
 
         if (!userEmail?.endsWith('@admin.com')) {
@@ -87,7 +88,7 @@ export async function DELETE(
     { params }: { params: { id: string } }
 ) {
     try {
-        const session = await auth()
+        const session = await auth() as Session | null
         const userEmail = session?.user?.email
 
         if (!userEmail?.endsWith('@admin.com')) {
